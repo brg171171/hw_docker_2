@@ -32,7 +32,7 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
 
 Создан [.dockerignore](.dockerignore), исключающий `.env`, Git-метаданные, виртуальные окружения, кэш Python, документацию, скриншоты и другие файлы, не нужные приложению. Обязательные `COPY . .` и команда запуска Uvicorn сохранены.
 
-![Задание 1: multistage-сборка, версия Python, зависимости и CMD](docs/python-multistage-check.jpg)
+![](docs/Снимок1_1.png)
 
 ## Задание 3
 Создан [compose.yaml](compose.yaml), который подключает [proxy.yaml](proxy.yaml) директивой `include`. Включённый файл содержит оба прокси и bridge-сеть с точным именем `backend`.
