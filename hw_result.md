@@ -82,10 +82,6 @@ FROM requests;
 
 ![Задание 3: SQL-запрос на ВМ Yandex Cloud](docs/yc-mysql-sql-requests.jpg)
 
-### Docker SSH context
-
-![Задание 3: Docker SSH context и удалённый docker ps -a](docs/yc-docker-context.jpg)
-
 ## Задание 6
 
 ![](docs/terraform-dive-layer.jpg)
