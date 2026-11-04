@@ -118,14 +118,14 @@ FROM requests;
 
 ### Скачивание и сохранение образа
 
-![Задание 4: успешный docker pull и проверка платформы](docs/terraform-docker-pull.jpg)
+![](docs/Снимок3_1.png)
 
-![Задание 4: docker save и manifest.json](docs/terraform-docker-save.jpg)
+![](docs/Снимок3_2.png)
 
 ### Поиск слоя в dive
 
-![Задание 4: слой с /bin/terraform в dive](docs/terraform-dive-layer.jpg)
+![](docs/Снимок3_3.png)
 
 ### Извлечение файла и проверка
 
-![Задание 4: извлечение tar, права, запуск Terraform и SHA256](docs/terraform-extract-version.jpg)
+![](docs/Снимок3_5.png)
