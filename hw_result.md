@@ -4,32 +4,6 @@
 
 Создан [Dockerfile.python](Dockerfile.python) с двумя стадиями `builder` и `runtime` на основе `python:3.12-slim`. Зависимости устанавливаются в виртуальное окружение на первой стадии, затем окружение копируется в финальный образ вместе с исходным кодом приложения.
 
-```dockerfile
-FROM python:3.12-slim AS builder
-
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-WORKDIR /build
-
-COPY requirements.txt .
-RUN --mount=type=secret,id=pip_ca \
-    if [ -f /run/secrets/pip_ca ]; then export PIP_CERT=/run/secrets/pip_ca; fi \
-    && python -m venv /opt/venv \
-    && /opt/venv/bin/pip install --no-cache-dir -r requirements.txt
-
-FROM python:3.12-slim AS runtime
-
-ENV PATH="/opt/venv/bin:$PATH" \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
-
-WORKDIR /app
-COPY --from=builder /opt/venv /opt/venv
-COPY . .
-
-EXPOSE 5000
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
-```
-
 Создан [.dockerignore](.dockerignore), исключающий `.env`, Git-метаданные, виртуальные окружения, кэш Python, документацию, скриншоты и другие файлы, не нужные приложению. Обязательные `COPY . .` и команда запуска Uvicorn сохранены.
 
 ![](docs/Снимок1_1.png)
