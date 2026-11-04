@@ -42,11 +42,6 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
 - **Подключение к БД:** `DB_HOST=db`; имя базы, пользователь и пароли подставляются из существующего `.env`, без публикации реальных секретов.
 - **Готовность сервисов:** приложение запускается после успешного healthcheck MySQL.
 
-```yaml
-include:
-  - proxy.yaml
-```
-
 Запуск и HTTP-проверка:
 
 ```bash
@@ -55,6 +50,8 @@ sudo docker compose up -d --build --wait --wait-timeout 240
 sudo docker compose ps
 curl -L http://127.0.0.1:8090
 ```
+
+![](docs/Снимок2_1.png)
 
 Подключение к MySQL без печати пароля в командной строке хоста:
 
@@ -73,7 +70,7 @@ show tables;
 SELECT * from requests LIMIT 10;
 ```
 
-![Задание 2: базы данных, таблица requests и результат SQL-запроса](docs/mysql-sql-requests.jpg)
+![](docs/Снимок2_2.png)
 
 После сохранения скриншота локальный проект остановлен командой `docker compose down`. Отдельная проверка `docker compose ps -a` при подготовке этого отчёта также показала отсутствие контейнеров локального проекта; том базы данных не удалялся.
 
@@ -89,6 +86,7 @@ SELECT * from requests LIMIT 10;
 curl --fail --silent --show-error --location \
   https://raw.githubusercontent.com/brg171171/hw_docker_2/main/scripts/deploy-yc.sh \
   --output /tmp/deploy-yc.sh
+```
 
 ### Проверка HTTP извне
 
