@@ -1,0 +1,52 @@
+name: Python multistage Docker check
+
+on:
+  push:
+    paths:
+      - Dockerfile.python
+      - .dockerignore
+      - requirements.txt
+      - main.py
+      - .github/workflows/docker-python.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-smoke-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build runtime image
+        run: |
+          docker build --progress=plain \
+            -f Dockerfile.python \
+            -t shvirtd-example-python:test .
+
+      - name: Check Python, dependencies, and image contents
+        run: |
+          docker run --rm shvirtd-example-python:test python -c \
+            'import sys; assert sys.version_info[:2] == (3, 12); print(sys.version)'
+          docker run --rm shvirtd-example-python:test python -m pip check
+          docker run --rm shvirtd-example-python:test sh -ec \
+            'test ! -e /app/.env; test ! -e /app/.git; test ! -e /app/.github'
+
+      - name: Start container and check HTTP endpoints
+        run: |
+          docker run -d --name python-smoke-test \
+            -p 127.0.0.1:5000:5000 shvirtd-example-python:test
+          curl --fail --silent --show-error --retry 20 \
+            --retry-connrefused --retry-delay 1 --retry-max-time 60 \
+            http://127.0.0.1:5000/debug
+          curl --fail --silent --show-error \
+            http://127.0.0.1:5000/openapi.json
+
+      - name: Show logs and clean up
+        if: always()
+        run: |
+          docker logs python-smoke-test || true
+          docker rm -f python-smoke-test || true

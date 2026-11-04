@@ -1,0 +1,52 @@
+# Version control and CI metadata
+.git
+.github
+.gitignore
+
+# Local Python environments and generated files
+.venv
+venv
+env
+__pycache__
+*.py[cod]
+*.egg-info
+.pytest_cache
+.mypy_cache
+.ruff_cache
+.coverage
+htmlcov
+build
+dist
+
+# Secrets must be supplied at runtime, not baked into the image
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Editor, OS, and temporary files
+.idea
+.vscode
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+*~
+
+# Files not needed by the Python application
+Dockerfile*
+*Dockerfile.dockerignore
+.dockerignore
+README*
+LICENSE
+*.md
+*.pdf
+compose*.yml
+compose*.yaml
+docker-compose*.yml
+docker-compose*.yaml
+proxy.yaml
+haproxy
+nginx
