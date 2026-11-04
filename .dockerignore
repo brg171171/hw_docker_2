@@ -50,3 +50,5 @@ docker-compose*.yaml
 proxy.yaml
 haproxy
 nginx
+docs
+scripts
