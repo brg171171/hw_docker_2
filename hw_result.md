@@ -84,8 +84,12 @@ FROM requests;
 
 ## Задание 6
 
-![](docs/terraform-dive-layer.jpg)
+![](docs/Снимок6_1.png)
+
+![](docs/Снимок6_2.png)
 
 ![](docs/Снимок3_3.png)
+
+![](docs/Снимок6_3.png)
 
 ![](docs/Снимок3_5.png)
